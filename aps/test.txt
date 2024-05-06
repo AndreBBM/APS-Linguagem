@@ -1,0 +1,29 @@
+x = 10;
+y = 20;
+z = 10 -+5;
+exibir(1-10*10/5);
+
+j_1 = 3+6/3   *  2 -+-  +  2*4/2 + 0/1 -((6+ ((4)))/(2));
+exibir(j_1);
+
+se (1 ou 2) { exibir(33);}  senão { exibir(44);}
+
+se (x<y) { exibir(55);
+}  senão { exibir(66);
+}
+
+enquanto (x<y){
+    x = x+10;
+}
+exibir(x);   # teste
+
+#asdjfholaisuerfh
+exibir(Verdadeiro);
+exibir(Falso);
+exibir(1 e 0);
+exibir(Verdadeiro e Falso);
+exibir(Verdadeiro ou Falso);
+exibir(não Verdadeiro);
+exibir(não Falso);
+exibir(Verdadeiro e não Falso);
+
