@@ -100,20 +100,20 @@ class If(Node):
         self.iffalse = iffalse  # Bloco de código a ser executado se a expressão for falsa (else)
 
     def evaluate(self, ST):
-        Writer.write_asm("IF_{}:".format(self.id))
-        self.exp.evaluate(ST)
-        Writer.write_asm("CMP EAX, False")
-        if self.iffalse is not None:
-            Writer.write_asm("ELSE_{}:".format(self.id))
-            self.iffalse.evaluate(ST)
-            Writer.write_asm("JMP EXIT_{}".format(self.id))
-            Writer.write_asm("EXIT_{}:".format(self.id))
-            
-        else:
-            Writer.write_asm("JE EXIT_{}".format(self.id))
-            self.iftrue.evaluate(ST)
-            Writer.write_asm("JMP EXIT_{}".format(self.id))
-            Writer.write_asm("EXIT_{}:".format(self.id))
+        #Writer.write_asm("IF_{}:".format(self.id))
+        #self.exp.evaluate(ST)
+        #Writer.write_asm("CMP EAX, False")
+        #if self.iffalse is not None:
+        #    Writer.write_asm("ELSE_{}:".format(self.id))
+        #    #self.iffalse.evaluate(ST)
+        #    Writer.write_asm("JMP EXIT_{}".format(self.id))
+        #    Writer.write_asm("EXIT_{}:".format(self.id))
+        #    
+        #else:
+        #    Writer.write_asm("JE EXIT_{}".format(self.id))
+        #    #self.iftrue.evaluate(ST)
+        #    Writer.write_asm("JMP EXIT_{}".format(self.id))
+        #    Writer.write_asm("EXIT_{}:".format(self.id))
 
         #############################
         if self.exp.evaluate(ST) == 1:
@@ -156,8 +156,8 @@ class Assign(Node): # Usado para declarar variáveis com ou sem valor: local var
         self.exp = exp
 
     def evaluate(self, ST):
-        Writer.write_asm("PUSH DWORD 0 ; local {} = {}".format(self.var, self.exp))
-        
+        #Writer.write_asm("PUSH DWORD 0 ; local {} = {}".format(self.var, self.exp))
+
         #############################
         if self.exp is None:
             ST.create(self.var, None, 'int')
@@ -168,7 +168,7 @@ class Assign(Node): # Usado para declarar variáveis com ou sem valor: local var
         elif isinstance(exp_evaluate, str):
             ST.create(self.var, exp_evaluate, 'str')
         else:
-            raise ValueError(f"Tipo de variável não suportado: {type(exp_evaluate)}")
+            raise ValueError(f"Tipo de variável não suportado: {type(exp_evaluate)}, {exp_evaluate}")
         
         ##############################
         #return symbolTable[self.valor]     # talvez descomentar
@@ -210,8 +210,8 @@ class Identifier(Node):
         variavel = ST.getter(self.valor)
         sp = variavel[2]
 
-        asm = "MOV EAX, [EBP-{}] ; retorna identificador {}".format(sp, self.valor)
-        Writer.write_asm(asm)
+        #asm = "MOV EAX, [EBP-{}] ; retorna identificador {}".format(sp, self.valor)
+        #Writer.write_asm(asm)
         
         return variavel[0]
         #############################
@@ -236,7 +236,6 @@ class Print(Node):
         self.exp = exp
         
     def evaluate(self, ST):
-        #print(self.exp.evaluate(ST))
         self.exp.evaluate(ST)
         Writer.write_asm("PUSH EAX ; começa o print")
         Writer.write_asm("PUSH formatout ; formato int de saida")
@@ -334,8 +333,8 @@ class IntVal(Node):
         super().__init__('IntVal', valor)
 
     def evaluate(self, ST):
-        asm = "MOV EAX, "+str(self.valor) + " ; retorna {}".format(self.valor)
-        Writer.write_asm(asm)
+        #asm = "MOV EAX, "+str(self.valor) + " ; retorna {}".format(self.valor)
+        #Writer.write_asm(asm)
         return self.valor
     
 class StringVal(Node):
@@ -510,32 +509,40 @@ class Parser:
             bloco = Block()
             blocoElse = Block()
             self.tokenizer.selectNext()
-            #print(self.tokenizer.next.tipo, self.tokenizer.next.valor, self.tokenizer.position)
             exp = self.boolExpression()
-            #print(self.tokenizer.next.tipo, self.tokenizer.next.valor, self.tokenizer.position)
-            if self.tokenizer.next.tipo == 'THEN':
+            if self.tokenizer.next.tipo == 'ABRE CHAVES':
                 self.tokenizer.selectNext()
                 if self.tokenizer.next.tipo == 'NOVALINHA':
                     self.tokenizer.selectNext()
                 else:
                     raise ValueError(f"É esperado um \\n após o 'then'")
-                while self.tokenizer.next.tipo != 'ELSE' and self.tokenizer.next.tipo != 'END':
+                #while self.tokenizer.next.tipo != 'ELSE' and self.tokenizer.next.tipo != 'END':
+                while self.tokenizer.next.tipo != 'FECHA CHAVES':
                     bloco.addStatement(self.statement())
+                self.tokenizer.selectNext() # le o que vem depois do bloco if
                 if self.tokenizer.next.tipo == 'ELSE':
                     self.tokenizer.selectNext()
+                    if self.tokenizer.next.tipo == 'ABRE CHAVES':
+                        self.tokenizer.selectNext()
+                    else:
+                        raise ValueError(f"É esperado um \\n após o 'else'")
+                    #self.tokenizer.selectNext()
                     if self.tokenizer.next.tipo == 'NOVALINHA':
                         self.tokenizer.selectNext()
                     else:
                         raise ValueError(f"É esperado um \\n após o 'else'")
-                    while self.tokenizer.next.tipo != 'END':
+                    while self.tokenizer.next.tipo != 'FECHA CHAVES':
                         blocoElse.addStatement(self.statement())
-                if self.tokenizer.next.tipo == 'END':
+                if self.tokenizer.next.tipo == 'FECHA CHAVES':
                     self.tokenizer.selectNext()
                     if self.tokenizer.next.tipo == 'NOVALINHA' or self.tokenizer.next.tipo == 'EOF':
                         self.tokenizer.selectNext()
                         return If(exp, bloco, blocoElse)
                     else:
-                        raise ValueError(f"É esperado um \\n após o 'end'")
+                        raise ValueError(f"É esperado um \\n após o 'end', '{self.tokenizer.next.tipo}', {self.tokenizer.next.valor}, {self.tokenizer.position}")
+                if self.tokenizer.next.tipo == 'NOVALINHA' or self.tokenizer.next.tipo == 'EOF':
+                    self.tokenizer.selectNext()
+                    return If(exp, bloco, blocoElse)
                 else:
                     raise ValueError(f"Token inesperado: '{self.tokenizer.next.tipo}', {self.tokenizer.next.valor}, {self.tokenizer.position}")
             else:
@@ -545,16 +552,16 @@ class Parser:
             self.tokenizer.selectNext()
             exp = self.boolExpression()
             bloco = Block()
-            if self.tokenizer.next.tipo != 'DO':
-                raise ValueError(f"É esperado um 'do' após a expressão condicional do while")
+            if self.tokenizer.next.tipo != 'ABRE CHAVES':
+                raise ValueError(f"É esperado um 'do' após a expressão condicional do while, '{self.tokenizer.next.tipo}', {self.tokenizer.next.valor}, {self.tokenizer.position}")
             self.tokenizer.selectNext()
             if self.tokenizer.next.tipo == 'NOVALINHA':
                 self.tokenizer.selectNext()
             else:
                 raise ValueError(f"É esperado um \\n após o 'do'")
-            while self.tokenizer.next.tipo != 'END':
+            while self.tokenizer.next.tipo != 'FECHA CHAVES':
                 bloco.addStatement(self.statement())
-            if self.tokenizer.next.tipo == 'END':
+            if self.tokenizer.next.tipo == 'FECHA CHAVES':
                 self.tokenizer.selectNext()
                 if self.tokenizer.next.tipo == 'NOVALINHA' or self.tokenizer.next.tipo == 'EOF':
                     self.tokenizer.selectNext()
@@ -586,14 +593,18 @@ class Parser:
                     else:
                         raise ValueError(f"É esperado um nome de variável após o '('")
                 self.tokenizer.selectNext()
+                if self.tokenizer.next.tipo == 'ABRE CHAVES':
+                    self.tokenizer.selectNext()
+                else:
+                    raise ValueError(f"É esperado um '{{' após a declaração da função")
                 if self.tokenizer.next.tipo == 'NOVALINHA':
                     self.tokenizer.selectNext()
                 else:
                     raise ValueError(f"É esperado um \\n após a declaração da função")
                 bloco = Block()
-                while self.tokenizer.next.tipo != 'END':
+                while self.tokenizer.next.tipo != 'FECHA CHAVES':
                     bloco.addStatement(self.statement())
-                if self.tokenizer.next.tipo == 'END':
+                if self.tokenizer.next.tipo == 'FECHA CHAVES':
                     self.tokenizer.selectNext()
                     if self.tokenizer.next.tipo == 'NOVALINHA' or self.tokenizer.next.tipo == 'EOF':
                         self.tokenizer.selectNext()

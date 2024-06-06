@@ -65,26 +65,30 @@ extern int yydebug;
     RPAREN = 266,                  /* RPAREN  */
     LBRACE = 267,                  /* LBRACE  */
     RBRACE = 268,                  /* RBRACE  */
-    TRUE = 269,                    /* TRUE  */
-    FALSE = 270,                   /* FALSE  */
-    ASSIGN = 271,                  /* ASSIGN  */
-    EQUAL = 272,                   /* EQUAL  */
-    NOTEQUAL = 273,                /* NOTEQUAL  */
-    GREATER = 274,                 /* GREATER  */
-    LESS = 275,                    /* LESS  */
-    GREATEREQUAL = 276,            /* GREATEREQUAL  */
-    LESSEQUAL = 277,               /* LESSEQUAL  */
-    NEWLINE = 278,                 /* NEWLINE  */
-    ENDSTATEMENT = 279,            /* ENDSTATEMENT  */
-    NOT = 280,                     /* NOT  */
-    PLUS = 281,                    /* PLUS  */
-    MINUS = 282,                   /* MINUS  */
-    OR = 283,                      /* OR  */
-    AND = 284,                     /* AND  */
-    TIMES = 285,                   /* TIMES  */
-    DIVIDE = 286,                  /* DIVIDE  */
-    UMINUS = 287,                  /* UMINUS  */
-    UPLUS = 288                    /* UPLUS  */
+    LOCAL = 269,                   /* LOCAL  */
+    LER = 270,                     /* LER  */
+    FUNCTION = 271,                /* FUNCTION  */
+    RETORNA = 272,                 /* RETORNA  */
+    CONCAT = 273,                  /* CONCAT  */
+    TRUE = 274,                    /* TRUE  */
+    FALSE = 275,                   /* FALSE  */
+    ASSIGN = 276,                  /* ASSIGN  */
+    EQUAL = 277,                   /* EQUAL  */
+    NOTEQUAL = 278,                /* NOTEQUAL  */
+    GREATER = 279,                 /* GREATER  */
+    LESS = 280,                    /* LESS  */
+    GREATEREQUAL = 281,            /* GREATEREQUAL  */
+    LESSEQUAL = 282,               /* LESSEQUAL  */
+    NEWLINE = 283,                 /* NEWLINE  */
+    NOT = 284,                     /* NOT  */
+    PLUS = 285,                    /* PLUS  */
+    MINUS = 286,                   /* MINUS  */
+    OR = 287,                      /* OR  */
+    AND = 288,                     /* AND  */
+    TIMES = 289,                   /* TIMES  */
+    DIVIDE = 290,                  /* DIVIDE  */
+    UMINUS = 291,                  /* UMINUS  */
+    UPLUS = 292                    /* UPLUS  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -93,12 +97,13 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 39 "parser.y"
+#line 43 "parser.y"
 
     int num;
     char* str;
+    char** str_list;
 
-#line 102 "parser.tab.h"
+#line 107 "parser.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

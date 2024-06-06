@@ -1,0 +1,59 @@
+local asdasda
+asdasda = ler()
+x = 10
+local y = 20
+z = 10 -+5
+exibir(1-10*10/5)
+
+j_1 = 3+6/3   *  2 -+-  +  2*4/2 + 0/1 -((6+ ((4)))/(2))
+exibir(j_1)
+
+se (1 ou 0) { exibir(33)
+}  senão { 
+    exibir(44)
+}
+
+se 1 {
+    exibir(999) -- asdfasdf 1234
+}
+
+se (x<y) { 
+    exibir(55)
+}  senão { 
+    exibir(66) 
+    exibir(66)
+    x = 23
+}
+
+enquanto (x<y){
+    x = x+10
+}
+exibir(x)   # teste
+
+função soma(x, y){
+    retorna x + y
+}
+ 
+
+função read_val(x){
+    retorna ler()
+}
+
+função concat(a, b){
+    retorna a .. b
+}
+ 
+
+#asdjfholaisuerfh
+exibir(Verdadeiro)
+exibir(Falso)
+exibir(1 e 0)
+exibir(Verdadeiro e Falso)
+exibir(Verdadeiro ou Falso)
+exibir(não Verdadeiro)
+exibir(não Falso)
+exibir(Verdadeiro e não Falso) exibir(1)
+
+
+ 
+

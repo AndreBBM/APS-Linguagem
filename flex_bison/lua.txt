@@ -1,21 +1,33 @@
 
+exibir(0)
+
 função soma(x, y){
     retorna x + y
 }
+ 
 
 função read_val(){
     retorna ler()
 }
+ 
+read_val()
 
 função concat(a, b){
     retorna a .. b
 }
+ 
+exibir(1)
 
 local x_1
-x_1 = soma(read_val()-1, 1)
+x_1 = 10
+
+-- linha de baixo dando pau
+x_1 = soma(x_1, 1) 
+
 soma(2, 1)
 
 exibir(x_1)
+
 
 se (x_1 > 1 e não não não (x_1 < 1)) ou x_1 == 3 {
     x_1 = 2
@@ -28,13 +40,14 @@ y_1 = soma(y_1, x_1)
 local z__
 z__ = soma(x, y_1)
 
+
 se x_1 == 2 {
     x_1 = 2
 }
 
 se x_1 == 3 {
     x_1 = 2
-}       senão{
+} senão{
     x_1 = 3
 }
 
@@ -44,40 +57,12 @@ enquanto x_1 < 1 ou x == 2 {
     x_1 = soma(x_1, 1)
 }
 
-
-
--- Saida final
 exibir(x_1)
-exibir(x)
-exibir(z__+1)
 
--- All bool e operations
-local y = 2
-local z
-z = (y == 2)
-exibir(y+z)
-exibir(y-z)
-exibir(y*z)
-exibir(y/z)
-exibir(y == z)
-exibir(y < z)
-exibir(y > z)
 
--- All str operations 
-local a 
-local b
-
-x_1 = 1 
-y = 1 
-z = 2
-a = "abc"
-b = "def"
-exibir(concat(a.."",b..""))
-exibir(a..x_1)
-exibir(x_1..a)
-exibir(y..z)
-exibir(a..(x_1==1))
-exibir(a == a)
-exibir(a < b)
-exibir(a > b)
-
+-- string ainda n'ao ta funcionando
+se 1> 2 e 2 < 3 {
+    exibir("um é maior que dois")
+} senão{
+    exibir("dois é maior que um")
+}

@@ -12,6 +12,7 @@ class Tokenizer:
         self.position = 0
         self.next = None
         self.parenteses = 0
+        self.chaves = 0
         self.novalinha = 0
         
     def selectNext(self):
