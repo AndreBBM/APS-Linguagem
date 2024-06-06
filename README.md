@@ -1,9 +1,9 @@
 ## EBNF da Linguagem
 
 ### Execução
-
+Rode o interpretador em python e passe o arquivo de código como argumento
 ``` bash
-main.py" fibonacci.paiton
+main.py fibonacci.paiton
 ```
 
 ### EBNF
