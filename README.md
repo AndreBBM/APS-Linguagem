@@ -1,7 +1,14 @@
 ## EBNF da Linguagem
 
-```ebnf
+### Execução
 
+``` bash
+main.py" fibonacci.paiton
+```
+
+### EBNF
+
+```ebnf
 BLOCK = { STATEMENT };
 
 STATEMENT = ( 
@@ -40,6 +47,14 @@ LETTER = ( "a" | "..." | "z" | "A" | "..." | "Z" ) ;
 DIGIT = ( "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "0" ) ;
 
 STRING = '"', ({LETTER | DIGIT | "_"}), '"';
-
 ```
 ![EBNF](EBNF.png)
+
+### Análise Léxica e Sintática no Flex e Bison
+
+```bash
+bison -d -o parser.tab.c parser.y
+flex -o lexer.c lexer.l
+gcc -o parser parser.tab.c lexer.c -lfl
+./parser < lua.txt
+```

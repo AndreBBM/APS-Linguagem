@@ -155,7 +155,7 @@ class Tokenizer:
             self.next = Token('STRING', self.source[start+1:self.position])
             self.position += 1
 
-        elif re.match(r'^[a-zA-Z_$][\w$]*$', self.source[self.position]):
+        elif re.match(r'^[A-zÀ-ú][\w$]*$', self.source[self.position]):
             start = self.position
             while self.position < len(self.source) and re.match(r'^[\w$]*$', self.source[self.position]) and self.source[self.position] != '\n':
                 self.position += 1

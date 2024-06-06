@@ -13,9 +13,9 @@ função soma_n_primeiros(n){ -- Função que soma os n primeiros números
 local variável
 variável = 10
 local resultado = soma_n_primeiros(variável)
-exibir(resultado)
+exibir(soma_n_primeiros(variável))
 -- exibir(soma) esse comando não funcionaria pois a variável soma é local a função soma_n_primeiros
 
 
-local Aáàãâ = 10
-exibir(Aáàãâ) -- 10
+local áàãâ = 10
+exibir(áàãâ) -- 10

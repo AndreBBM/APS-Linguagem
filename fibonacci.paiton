@@ -30,3 +30,9 @@ função Fibonacci(n){
 local k = 20
 exibir("Fibonacci de " .. k .. " números:")
 Fibonacci(k)    -- Fibonacci de 20 números
+
+se 1 > 2 e 2 < 3 {
+    exibir("um é maior que dois")
+} senão{
+    exibir("dois é maior que um")
+}
